@@ -2,6 +2,8 @@
 // (in practice_flutter_10_valuenotifier core_state.dart was deleted)
 // instead of  home: MainPage(stateNotifier), we added it to child parameter,
 // so MainPage doesn't actually get rebuilt every time the bgColor changes
+// edit: unlike in practice_flutter_10_valuenotifier, MainPage does get rebuilt,
+// because counter and bgColor are not separated due to using CoreState
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
