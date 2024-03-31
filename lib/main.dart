@@ -1,5 +1,7 @@
 // left core_state.dart like in practice_flutter_10_changenotifier
 // (in practice_flutter_10_valuenotifier core_state.dart was deleted)
+// instead of  home: MainPage(stateNotifier), we added it to child parameter,
+// so MainPage doesn't actually get rebuilt every time the bgColor changes
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,28 +27,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = CoreNotifier(const CoreState());
-    return ListenableBuilder(
-        listenable: state,
-        builder: (BuildContext context, Widget? child) => MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Valuenotifier',
-              theme: ThemeData(
-                scaffoldBackgroundColor: state.value.backgroundColor,
-                primaryColor: Colors.white,
-              ),
-              home: MainPage(state),
-            ));
+    final stateNotifier = CoreNotifier(const CoreState());
+    return ValueListenableBuilder(
+      valueListenable: stateNotifier,
+      builder: (BuildContext context, CoreState state, Widget? child) =>
+          MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Valuenotifier',
+        theme: ThemeData(
+          scaffoldBackgroundColor: state.backgroundColor,
+          primaryColor: Colors.white,
+        ),
+        home: child,
+      ),
+      child: MainPage(stateNotifier),
+    );
   }
 }
 
 class MainPage extends StatelessWidget {
   const MainPage(
-    this.state, {
+    this.stateNotifier, {
     super.key,
   });
 
-  final CoreNotifier state;
+  final CoreNotifier stateNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -58,19 +63,21 @@ class MainPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ListenableBuilder(
-                listenable: state,
-                builder: (BuildContext context, Widget? child) => Text(
-                      '${state.value.counter}',
-                      style: const TextStyle(fontSize: 100),
-                    )),
+            ValueListenableBuilder(
+                valueListenable: stateNotifier,
+                builder:
+                    (BuildContext context, CoreState state, Widget? child) =>
+                        Text(
+                          '${state.counter}',
+                          style: const TextStyle(fontSize: 100),
+                        )),
             const SizedBox(height: 47),
             ButtonWidget(
               text: 'Change Color',
               onClicked: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ColorPage(state),
+                  builder: (BuildContext context) => ColorPage(stateNotifier),
                 ),
               ),
             ),
@@ -80,7 +87,7 @@ class MainPage extends StatelessWidget {
               onClicked: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => CounterPage(state),
+                  builder: (BuildContext context) => CounterPage(stateNotifier),
                 ),
               ),
             ),

@@ -3,9 +3,9 @@ import '/model/core_state.dart';
 import '/main.dart';
 
 class ColorPage extends StatelessWidget {
-  const ColorPage(this.state, {super.key});
+  const ColorPage(this.stateNotifier, {super.key});
 
-  final CoreNotifier state;
+  final CoreNotifier stateNotifier;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -38,7 +38,7 @@ class ColorPage extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: color, elevation: 0),
           onPressed: () {
-            state.setColor(color);
+            stateNotifier.setColor(color);
             Navigator.pop(context);
           },
           child: Container(height: 100),
