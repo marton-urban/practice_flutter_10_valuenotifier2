@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stateNotifier = CoreNotifier(const CoreState());
+    final stateNotifier = CoreNotifier();
     return ValueListenableBuilder(
       valueListenable: stateNotifier,
       builder: (BuildContext context, CoreState state, Widget? child) =>

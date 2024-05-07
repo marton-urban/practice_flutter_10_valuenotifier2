@@ -23,7 +23,7 @@ class CoreState {
 }
 
 class CoreNotifier extends ValueNotifier<CoreState> {
-  CoreNotifier(super.value);
+  CoreNotifier() : super(const CoreState());
 
   void incrementCounter() {
     value = value.copyWith(counter: value.counter + 1);
