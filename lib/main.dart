@@ -29,9 +29,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stateNotifier = CoreNotifier();
     return ValueListenableBuilder(
-      valueListenable: stateNotifier,
+      valueListenable: CoreNotifier(),
       builder: (BuildContext context, CoreState state, Widget? child) =>
           MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -42,18 +41,13 @@ class MyApp extends StatelessWidget {
         ),
         home: child,
       ),
-      child: MainPage(stateNotifier),
+      child: const MainPage(),
     );
   }
 }
 
 class MainPage extends StatelessWidget {
-  const MainPage(
-    this.stateNotifier, {
-    super.key,
-  });
-
-  final CoreNotifier stateNotifier;
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +60,7 @@ class MainPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ValueListenableBuilder(
-                valueListenable: stateNotifier,
+                valueListenable: CoreNotifier(),
                 builder:
                     (BuildContext context, CoreState state, Widget? child) =>
                         Text(
@@ -79,7 +73,7 @@ class MainPage extends StatelessWidget {
               onClicked: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ColorPage(stateNotifier),
+                  builder: (BuildContext context) => ColorPage(),
                 ),
               ),
             ),
@@ -89,7 +83,7 @@ class MainPage extends StatelessWidget {
               onClicked: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => CounterPage(stateNotifier),
+                  builder: (BuildContext context) => CounterPage(),
                 ),
               ),
             ),

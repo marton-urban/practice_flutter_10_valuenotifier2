@@ -3,9 +3,7 @@ import '/model/core_state.dart';
 import '/widget/button_widget.dart';
 
 class CounterPage extends StatefulWidget {
-  const CounterPage(this.stateNotifier, {super.key});
-
-  final CoreNotifier stateNotifier;
+  const CounterPage({super.key});
 
   @override
   State<CounterPage> createState() => _CounterPageState();
@@ -21,13 +19,13 @@ class _CounterPageState extends State<CounterPage> {
   }
 
   void increment() {
-    widget.stateNotifier.incrementCounter();
+    CoreNotifier().incrementCounter();
     Navigator.pop(context);
   }
 
   void setStringCounter() {
     final counter = int.tryParse(myTextField.value);
-    widget.stateNotifier.setCounter(counter!);
+    CoreNotifier().setCounter(counter!);
     Navigator.pop(context);
   }
 

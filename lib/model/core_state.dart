@@ -23,7 +23,9 @@ class CoreState {
 }
 
 class CoreNotifier extends ValueNotifier<CoreState> {
-  CoreNotifier() : super(const CoreState());
+  CoreNotifier._sharedInstance() : super(const CoreState());
+  static final CoreNotifier _shared = CoreNotifier._sharedInstance();
+  factory CoreNotifier() => _shared;
 
   void incrementCounter() {
     value = value.copyWith(counter: value.counter + 1);

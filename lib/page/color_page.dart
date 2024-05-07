@@ -3,9 +3,7 @@ import '/model/core_state.dart';
 import '/main.dart';
 
 class ColorPage extends StatelessWidget {
-  const ColorPage(this.stateNotifier, {super.key});
-
-  final CoreNotifier stateNotifier;
+  const ColorPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -18,14 +16,14 @@ class ColorPage extends StatelessWidget {
             child: Container(
               color: Colors.white,
               padding: const EdgeInsets.all(12),
-              child: Column(
+              child: const Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  MyColorButton(stateNotifier, Colors.red),
-                  MyColorButton(stateNotifier, Colors.orange),
-                  MyColorButton(stateNotifier, Colors.greenAccent),
-                  MyColorButton(stateNotifier, Colors.indigo),
+                  MyColorButton(Colors.red),
+                  MyColorButton(Colors.orange),
+                  MyColorButton(Colors.greenAccent),
+                  MyColorButton(Colors.indigo),
                 ],
               ),
             ),
@@ -36,9 +34,8 @@ class ColorPage extends StatelessWidget {
 
 class MyColorButton extends StatelessWidget {
   final Color color;
-  final CoreNotifier stateNotifier;
 
-  const MyColorButton(this.stateNotifier, this.color, {super.key});
+  const MyColorButton(this.color, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +44,7 @@ class MyColorButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: color, elevation: 0),
         onPressed: () {
-          stateNotifier.setColor(color);
+          CoreNotifier().setColor(color);
           Navigator.pop(context);
         },
         child: Container(height: 100),
